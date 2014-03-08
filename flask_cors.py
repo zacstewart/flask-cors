@@ -51,6 +51,7 @@ def cross_origin(origins='*', methods=['GET','HEAD','POST','OPTIONS','PUT'],
     if not isinstance(headers, string_types) and isinstance(headers, collections.Iterable):
         headers = ', '.join(x for x in headers)
 
+
     origins_str = str(origins)
     if not isinstance(origins, string_types) and isinstance(origins, collections.Iterable):
         origins_str = ', '.join(origins)
@@ -99,6 +100,9 @@ def cross_origin(origins='*', methods=['GET','HEAD','POST','OPTIONS','PUT'],
                 resp.headers['Access-Control-Max-Age'] = str(max_age)
             if headers is not None:
                 resp.headers['Access-Control-Allow-Headers'] = headers
+            if supports_credentials:
+              resp.headers['Access-Control-Allow-Credentials'] = 'true'
+
             return resp
 
         f.required_methods = ['OPTIONS']
